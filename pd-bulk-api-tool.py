@@ -98,6 +98,9 @@ def get_ldap_creds():
 
 def add_ldap_entries(input_file, pd_api_base_url, headers, login_credentials):
     try:
+        if not input_file:
+                return
+
         # Process entries
         valid_json = validate_json(input_file)
     
@@ -125,6 +128,9 @@ def add_ldap_entries(input_file, pd_api_base_url, headers, login_credentials):
 
 def delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials):
     try:
+        if not input_file:
+            return
+            
         ## Process entries
         valid_json = validate_json(input_file)
  
@@ -151,16 +157,21 @@ def delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
         print("\n\nInvalid File!\n")
 
 
-def modify_ldap_entries(input_file, pd_api_base_url, headers, loigin_credentials):
-    try:
-        valid_json = validate_json(input_file)
-        if not valid_json:
-            raise IOError
+def modify_ldap_entries(input_file, pd_api_base_url, headers, login_credentials):
+    while(True):
+        try:
+            if not input_file:
+                return
         
+            valid_json = validate_json(input_file)
+        
+            if not valid_json:
+                raise IOError
 
-    except (IOError):
-        print("\n\nInvalid File!\n")
-
+        except (IOError):
+            print("\n\nInvalid File!\n")
+            input_file = select_input_file()
+        
 ##
 
 
