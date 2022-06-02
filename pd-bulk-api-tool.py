@@ -5,8 +5,6 @@ import requests
 import sys
 import time
 import json
-import re
-from sys import argv
 from subprocess import call
 from getpass import getpass
 import tkinter as tk
@@ -160,12 +158,11 @@ def delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
 def modify_ldap_entries(input_file, pd_api_base_url, headers, login_credentials):
     while(True):
         try:
-            #input_file = input_file
             if not input_file:
                 return
         
             valid_json = validate_json(input_file)
-            
+
             if not valid_json:
                 raise IOError
             else:
