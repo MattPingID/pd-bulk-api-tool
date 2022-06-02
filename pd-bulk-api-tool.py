@@ -80,7 +80,7 @@ def validate_json(input_file):
     try:
         with open(input_file, 'r') as data:
             json.load(data)
-    except ValueError as err:
+    except ValueError as err:    
         return False
     return True
 
@@ -148,10 +148,19 @@ def delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
           
             time.sleep(0.05)
     except IOError:
-        print("Invalid File")
+        print("\n\nInvalid File!\n")
 
 
-def modify_
+def modify_ldap_entries(input_file, pd_api_base_url, headers, loigin_credentials):
+    try:
+        valid_json = validate_json(input_file)
+        if not valid_json:
+            raise IOError
+        
+
+    except (IOError):
+        print("\n\nInvalid File!\n")
+
 ##
 
 
