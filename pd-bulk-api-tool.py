@@ -42,13 +42,14 @@ def main():
                 add_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
     
             elif (menu_selection == 2):
-                print("Select input file containing entries to delete.\nInput file must be raw text consisting of a single DN per line")
+                print("\n- Select input file containing entries to delete.\n- Input file must be raw text consisting of a single DN per line")
                 input_file = select_input_file()
                 delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
     
             elif(menu_selection == 3):
-                print("Select input file containing desired ")
-                modify_ldap_entries()
+                print("\n- Select input file containing desired modifactions for existing LDAP entires.")
+                input_file = select_input_file()
+                modify_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
     
             elif (menu_selection == 4):
                 print("\nExiting")
@@ -67,11 +68,13 @@ def print_menu():
     for key in options.keys():
         print("\t\t",key,"--",options[key]) 
 
+
 def select_input_file():
     root = tk.Tk()
     root.withdraw()
     file_path = filedialog.askopenfilename()
     return file_path
+
 
 def validate_json(input_file):        
     try:
@@ -80,6 +83,7 @@ def validate_json(input_file):
     except ValueError as err:
         return False
     return True
+
 
 def get_ldap_creds():
     login = "cn=Administrator"
@@ -90,6 +94,7 @@ def get_ldap_creds():
    
     password = "2FederateM0re" #getpass("Admin Password: ")
     return (login, password)
+
 
 def add_ldap_entries(input_file, pd_api_base_url, headers, login_credentials):
     try:
@@ -117,6 +122,7 @@ def add_ldap_entries(input_file, pd_api_base_url, headers, login_credentials):
     except IOError:
         print("Invalid File")
 
+
 def delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials):
     try:
         ## Process entries
@@ -143,7 +149,11 @@ def delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
             time.sleep(0.05)
     except IOError:
         print("Invalid File")
+
+
+def modify_
 ##
+
 
 if __name__ == "__main__":
     main()
