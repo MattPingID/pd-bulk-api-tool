@@ -16,7 +16,7 @@ requests.packages.urllib3.disable_warnings() #Disblae invalid cert warnings
 
 options = { 1: 'Add LDAP Entries',
             2: 'Delete LDAP Entries',
-            3: 'Modify LDAP Entries',
+            3: 'Modify LDAP Entries (TODO)',
             4: 'Exit'  }
 
 def main():
@@ -31,8 +31,6 @@ def main():
         
         while(True):
             print_menu()
-            menu_selection = ''
-
             try:
                 menu_selection = int(input("\nSelect Option: "))
             except:
@@ -60,6 +58,8 @@ def main():
 
     except KeyboardInterrupt:
         sys.exit(0)
+
+##
 
 def print_menu():
     print("\n\t\t\t* * * * Menu * * * *\n")
@@ -103,16 +103,16 @@ def add_ldap_entries(input_file, pd_api_base_url, headers, login_credentials):
                 data = ldap_entries
 
             for entry in  data: #ldap_data['entries']: #ldap_data['entries']: #in ldap_entries:
-                print("\nAdding entry: {}".format(entry))
+                print("\n\nAdding entry:\n\n\t{}".format(entry))
                 entry = str(entry).replace('\'', '"')
                 request_url="{}".format(pd_api_base_url)
                 api_response = requests.post(request_url, verify=False, auth=login_credentials, headers=headers, data="{}".format(entry))
 
                 if (api_response.status_code == 201):   
-                    print("Response Code: {} - SUCCESS\n".format(api_response.status_code))          
+                    print("\n\tResponse Code: {} - SUCCESS\n".format(api_response.status_code))          
                 else:
                     print(api_response.json())
-                time.sleep(0.25)    
+                time.sleep(0.05)    
     except IOError:
         print("Invalid File")
 
@@ -128,7 +128,6 @@ def delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
             data = ldap_entries
 
         for dn in data:
-            
             dn = dn.rstrip('\n')  #remove trailing newline
             print("\nDeleting entry: {}".format(dn.split(',', 1)[0]))  # strip full DN after UID
             request_url="{}{}".format(pd_api_base_url, dn)
@@ -139,7 +138,8 @@ def delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
             else:
                 print(api_response.json())
           
-            time.sleep(0.25)
+            time.sleep(0.05)
+##
 
 if __name__ == "__main__":
     main()
