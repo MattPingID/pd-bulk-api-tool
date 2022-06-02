@@ -130,7 +130,7 @@ def delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
     try:
         if not input_file:
             return
-            
+
         ## Process entries
         valid_json = validate_json(input_file)
  
@@ -160,18 +160,22 @@ def delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
 def modify_ldap_entries(input_file, pd_api_base_url, headers, login_credentials):
     while(True):
         try:
+            #input_file = input_file
             if not input_file:
                 return
         
             valid_json = validate_json(input_file)
-        
+            
             if not valid_json:
                 raise IOError
-
+            else:
+                print("TEST")
+                break
+        
         except (IOError):
             print("\n\nInvalid File!\n")
             input_file = select_input_file()
-        
+            
 ##
 
 
