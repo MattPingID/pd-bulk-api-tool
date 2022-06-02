@@ -47,7 +47,8 @@ def main():
                 delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
     
             elif(menu_selection == 3):
-                pass
+                print("Select input file containing desired ")
+                modify_ldap_entries()
     
             elif (menu_selection == 4):
                 print("\nExiting")
@@ -117,21 +118,22 @@ def add_ldap_entries(input_file, pd_api_base_url, headers, login_credentials):
         print("Invalid File")
 
 def delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials):
-    ## Process entries
-    valid_json = validate_json(input_file)
+    try:
+        ## Process entries
+        valid_json = validate_json(input_file)
  
-    with open(input_file, 'r') as ldap_entries:
-        if (valid_json):
-            ldap_data = json.load(ldap_entries)
-            data = ldap_data['entries']
-        else: 
-            data = ldap_entries
+        with open(input_file, 'r') as ldap_entries:
+            if (valid_json):
+                ldap_data = json.load(ldap_entries)
+                data = ldap_data['entries']
+            else: 
+                data = ldap_entries
 
-        for dn in data:
-            dn = dn.rstrip('\n')  #remove trailing newline
-            print("\nDeleting entry: {}".format(dn.split(',', 1)[0]))  # strip full DN after UID
-            request_url="{}{}".format(pd_api_base_url, dn)
-            api_response = requests.delete(request_url, headers=headers, verify=False, auth=login_credentials)
+            for dn in data:
+                dn = dn.rstrip('\n')  #remove trailing newline
+                print("\nDeleting entry: {}".format(dn.split(',', 1)[0]))  # strip full DN after UID
+                request_url="{}{}".format(pd_api_base_url, dn)
+                api_response = requests.delete(request_url, headers=headers, verify=False, auth=login_credentials)
     
             if (api_response.status_code == 204):
                 print("Response Code: {} - SUCCESS\n".format(api_response.status_code))
@@ -139,6 +141,8 @@ def delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
                 print(api_response.json())
           
             time.sleep(0.05)
+    except IOError:
+        print("Invalid File")
 ##
 
 if __name__ == "__main__":
