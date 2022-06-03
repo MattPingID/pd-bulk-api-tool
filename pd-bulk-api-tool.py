@@ -154,12 +154,12 @@ def delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
         with open(input_file, 'r') as ldap_entries:
             if (valid_json):
                 ldap_data = json.load(ldap_entries)
-                data = ldap_data['entries']
+                data = ldap_data['entriesToDelete']
             else: 
                 data = ldap_entries
 
-            for dn in data:
-                dn = dn.rstrip('\n')  #remove trailing newline
+            for entry in data:
+                dn = entry['dn'] if valid_json else entry.rstrip('\n')  #remove trailing newline
                 print("\nDeleting entry: {}".format(dn.split(',', 1)[0]))  # strip full DN after UID
                 request_url="{}{}".format(pd_api_base_url, dn)
                 api_response = requests.delete(request_url, headers=headers, verify=False, auth=login_credentials)
