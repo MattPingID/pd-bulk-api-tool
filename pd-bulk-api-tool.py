@@ -22,6 +22,7 @@ def main():
     try:
         call('clear' if os.name =='posix' else 'cls') #clear screen
 
+        print("\n\t\t\tPingDirectoly Bulk API Tool\n\n")
         ## PD API Endpoint:
         pd_api_base_url = "https://localhost:1443/directory/v1/"   # Replace with desired instance URL 
         headers = { 'Content-Type': 'application/json' }
@@ -65,7 +66,7 @@ def main():
 
 
 def print_menu():
-    print("\n\t\t\t* * * * Menu * * * *\n")
+    print("\n\n\t\t\t* * * * Menu * * * *\n")
     for key in options.keys():
         print("\t\t",key,"--",options[key]) 
 
@@ -90,7 +91,6 @@ def validate_json(input_file):
 
 
 def get_ldap_creds():
-    
     while(True):
         try: 
             default_admin_acct = input("Log in with 'cn=Administrator'? (y/n): ")
@@ -162,10 +162,10 @@ def delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
                 request_url="{}{}".format(pd_api_base_url, dn)
                 api_response = requests.delete(request_url, headers=headers, verify=False, auth=login_credentials)
     
-            if (api_response.status_code == 204):
-                print("Response Code: {} - SUCCESS\n".format(api_response.status_code))
-            else:
-                print(api_response.json())
+                if (api_response.status_code == 204):
+                    print("Response Code: {} - SUCCESS\n".format(api_response.status_code))
+                else:
+                    print(api_response.json())
           
             time.sleep(0.05)
     except IOError:
