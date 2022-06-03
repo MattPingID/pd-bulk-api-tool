@@ -14,7 +14,7 @@ requests.packages.urllib3.disable_warnings() #Disblae invalid cert warnings
 
 options = { 1: 'Add LDAP Entries',
             2: 'Delete LDAP Entries',
-            3: 'Modify LDAP Entries (TODO)',
+            3: 'Modify LDAP Entries',
             4: 'Exit'  }
 
 def main():
@@ -35,17 +35,17 @@ def main():
                 pass
 
             if (menu_selection == 1):
-                print("\n- Select input file containing entries to add.\n- Input file must be either json or raw text consisting of one entery per line enclosed in braces\n\nExample:\n{\"_dn\": \"uid=user.0,ou=people,dc=example,dc=com\",\"objectClass\": [\"top\", \"organizationalPerson\", \"inetOrgPerson\", \"pf-connected-identities\"],\"sn\": [\"Seawell\"],\"cn\": [\"Esko Seawell\"],\"givenName\": [\"Esko\"],\"uid\": [\"user.0\"],\"mail\": [\"user.0@example.com\"],\"userPassword\": [\"2FederateM0re\"],\"pf-connected-identity\": [\"auth-source=pf-local-identity:user-id=user.0\"]}")  
+                print("\n- Select input file containing entries to add.\n- Input file must be either json or raw text consisting of one entery per line enclosed in braces\n\nExample:\n{\"_dn\": \"uid=user.0,ou=people,dc=example,dc=com\",\"objectClass\": [\"top\", \"organizationalPerson\", \"inetOrgPerson\", \"pf-connected-identities\"],\"sn\": [\"Seawell\"],\"cn\": [\"Esko Seawell\"],\"givenName\": [\"Esko\"],\"uid\": [\"user.0\"],\"mail\": [\"user.0@example.com\"],\"userPassword\": [\"2FederateM0re\"],\"pf-connected-identity\": [\"auth-source=pf-local-identity:user-id=user.0\"]}\n")  
                 input_file = select_input_file()
                 add_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
     
             elif (menu_selection == 2):
-                print("\n- Select input file containing entries to delete.\n- Input file must be raw text consisting of a single DN per line")
+                print("\n- Select input file containing entries to delete.\n- Input file must be raw text consisting of a single DN per line\n")
                 input_file = select_input_file()
                 delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
     
             elif(menu_selection == 3):
-                print("\n- Select input file containing desired modifactions for existing LDAP entires.\n-Input file mus be valid json with \"modifcations\" root key for each entry")
+                print("\n- Select input file containing desired modifactions for existing LDAP entires.\n-Input file mus be valid json with \"modifcations\" root key for each entry\n")
                 input_file = select_input_file()
                 modify_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
     
@@ -155,6 +155,7 @@ def delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
         print("\n\nInvalid File!\n")
 
 
+
 def modify_ldap_entries(input_file, pd_api_base_url, headers, login_credentials):
     while(True):
         try:
@@ -171,9 +172,16 @@ def modify_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
 
                     for entry in ldap_entries_to_modify['entriesToModify']:
                         dn = entry['dn']
+                        payload = "{{\"modifications\": \n{}}}".format(entry['modifications'])
+                        payload = payload.replace('\'','"')
+                        payload = payload.replace("True", "true")
                         request_url = "{}{}".format(pd_api_base_url, dn)
+                        print("\n\nModifying entry: {}\n\n\t{}".format(entry['dn'], payload))
                         print(request_url)
-            
+                        api_response = requests.patch(request_url, headers=headers, verify=False, auth=login_credentials, data=payload)
+                        print(api_response)
+                        #print("Status Code: {}".format(api_response.status_code())
+                        #print("API Response: {}\n".format(api_response.json))
                 break
         
         except (IOError):
@@ -185,5 +193,3 @@ def modify_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
 
 if __name__ == "__main__":
     main()
-    
-
