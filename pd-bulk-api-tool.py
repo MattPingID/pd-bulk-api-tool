@@ -42,12 +42,12 @@ def main():
                 add_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
     
             elif (menu_selection == 2):
-                print("\n* Select input file containing entries to delete.\n* Input file must be raw text consisting of a single DN per line\n")
+                print("\n* Select input file containing entries to delete.\n* Input file must be either valid json with a single \"entriesToDelete\" key with a value consisting of a list of DN objects, or raw text consisting of a single DN per line\n")
                 input_file = select_input_file()
                 delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
     
             elif(menu_selection == 3):
-                print("\n* Select input file containing desired modifactions for existing LDAP entires.\n* Input file mus be valid json with \"modifcations\" root key for each entry\n")
+                print("\n* Select input file containing desired modifactions for existing LDAP entires.\n* Input file mus be valid json with a single \"entriesToModify\" key with a value consisting of a list of DN objects to modify and corresponding \"modifcations\"  key for each entry\n")
                 input_file = select_input_file()
                 modify_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
     
