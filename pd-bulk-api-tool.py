@@ -58,6 +58,8 @@ def main():
             elif (menu_selection not in options.keys()):
                 print("Invalid option!\n")
 
+            print("\n\n\n\n\n\t\t\tPingDirectoly Bulk API Tool")
+
     except KeyboardInterrupt:
         sys.exit(0)
 
