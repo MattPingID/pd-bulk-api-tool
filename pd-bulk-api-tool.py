@@ -5,10 +5,11 @@ import requests
 import sys
 import time
 import json
-from subprocess import call
-from getpass import getpass
 import tkinter as tk
 from tkinter import filedialog
+from subprocess import call
+from getpass import getpass
+
 
 requests.packages.urllib3.disable_warnings() #Disblae invalid cert warnings
 
@@ -182,6 +183,7 @@ def modify_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
                         payload = "{{\"modifications\": \n{}}}\n".format(entry['modifications'])
                         payload = payload.replace('\'','"')
                         payload = payload.replace("True", "true")
+                        payload = payload.replace("False", "false")
                         request_url = "{}{}".format(pd_api_base_url, dn)
                         print("\n\nModifying Entry: {}\n\n\t{}".format(entry['dn'], payload))
                         api_response = requests.patch(request_url, headers=headers, verify=False, auth=login_credentials, data=payload)
@@ -189,8 +191,7 @@ def modify_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
                             print("Response Code: {} - SUCCESS\n".format(api_response.status_code))
                         else:
                             print("Response Code: {}".format(api_response.status_code))
-                        print("Response Body:\n\t{}\n".format(api_response.text))
-                       
+                        print("Response Body:\n\t{}\n".format(api_response.text))        
                 break
         
         except (IOError):
