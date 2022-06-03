@@ -35,17 +35,17 @@ def main():
                 pass
 
             if (menu_selection == 1):
-                print("\n- Select input file containing entries to add.\n- Input file must be either json or raw text consisting of one entery per line enclosed in braces\n\nExample:\n{\"_dn\": \"uid=user.0,ou=people,dc=example,dc=com\",\"objectClass\": [\"top\", \"organizationalPerson\", \"inetOrgPerson\", \"pf-connected-identities\"],\"sn\": [\"Seawell\"],\"cn\": [\"Esko Seawell\"],\"givenName\": [\"Esko\"],\"uid\": [\"user.0\"],\"mail\": [\"user.0@example.com\"],\"userPassword\": [\"2FederateM0re\"],\"pf-connected-identity\": [\"auth-source=pf-local-identity:user-id=user.0\"]}\n")  
+                print("\n* Select input file containing entries to add.\n* Input file must be either json or raw text consisting of one entery per line enclosed in braces\n\nExample:\n{\"_dn\": \"uid=user.0,ou=people,dc=example,dc=com\",\"objectClass\": [\"top\", \"organizationalPerson\", \"inetOrgPerson\", \"pf-connected-identities\"],\"sn\": [\"Seawell\"],\"cn\": [\"Esko Seawell\"],\"givenName\": [\"Esko\"],\"uid\": [\"user.0\"],\"mail\": [\"user.0@example.com\"],\"userPassword\": [\"2FederateM0re\"],\"pf-connected-identity\": [\"auth-source=pf-local-identity:user-id=user.0\"]}\n")  
                 input_file = select_input_file()
                 add_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
     
             elif (menu_selection == 2):
-                print("\n- Select input file containing entries to delete.\n- Input file must be raw text consisting of a single DN per line\n")
+                print("\n* Select input file containing entries to delete.\n* Input file must be raw text consisting of a single DN per line\n")
                 input_file = select_input_file()
                 delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
     
             elif(menu_selection == 3):
-                print("\n- Select input file containing desired modifactions for existing LDAP entires.\n-Input file mus be valid json with \"modifcations\" root key for each entry\n")
+                print("\n* Select input file containing desired modifactions for existing LDAP entires.\n* Input file mus be valid json with \"modifcations\" root key for each entry\n")
                 input_file = select_input_file()
                 modify_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
     
@@ -59,7 +59,9 @@ def main():
     except KeyboardInterrupt:
         sys.exit(0)
 
+
 ##
+
 
 def print_menu():
     print("\n\t\t\t* * * * Menu * * * *\n")
@@ -67,11 +69,13 @@ def print_menu():
         print("\t\t",key,"--",options[key]) 
 
 
+
 def select_input_file():
     root = tk.Tk()
     root.withdraw()
     file_path = filedialog.askopenfilename()
     return file_path
+
 
 
 def validate_json(input_file):        
@@ -83,6 +87,7 @@ def validate_json(input_file):
     return True
 
 
+
 def get_ldap_creds():
     login = "cn=Administrator"
     default_admin_acct = input("Log in with 'cn=Administrator'? (y/n): ")
@@ -92,6 +97,7 @@ def get_ldap_creds():
    
     password = "2FederateM0re" #getpass("Admin Password: ")
     return (login, password)
+
 
 
 def add_ldap_entries(input_file, pd_api_base_url, headers, login_credentials):
@@ -122,6 +128,7 @@ def add_ldap_entries(input_file, pd_api_base_url, headers, login_credentials):
                 time.sleep(0.05)    
     except IOError:
         print("Invalid File")
+
 
 
 def delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials):
@@ -172,16 +179,18 @@ def modify_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
 
                     for entry in ldap_entries_to_modify['entriesToModify']:
                         dn = entry['dn']
-                        payload = "{{\"modifications\": \n{}}}".format(entry['modifications'])
+                        payload = "{{\"modifications\": \n{}}}\n".format(entry['modifications'])
                         payload = payload.replace('\'','"')
                         payload = payload.replace("True", "true")
                         request_url = "{}{}".format(pd_api_base_url, dn)
-                        print("\n\nModifying entry: {}\n\n\t{}".format(entry['dn'], payload))
-                        print(request_url)
+                        print("\n\nModifying Entry: {}\n\n\t{}".format(entry['dn'], payload))
                         api_response = requests.patch(request_url, headers=headers, verify=False, auth=login_credentials, data=payload)
-                        print(api_response)
-                        #print("Status Code: {}".format(api_response.status_code())
-                        #print("API Response: {}\n".format(api_response.json))
+                        if (api_response.status_code == 200):
+                            print("Response Code: {} - SUCCESS\n".format(api_response.status_code))
+                        else:
+                            print("Response Code: {}".format(api_response.status_code))
+                        print("Response Body:\n\t{}\n".format(api_response.text))
+                       
                 break
         
         except (IOError):
