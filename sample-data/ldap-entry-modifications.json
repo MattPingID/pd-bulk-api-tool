@@ -1,0 +1,19 @@
+{ "entriesToModify" : [{ "dn" : "uid=user.0,ou=people,dc=example,dc=com",
+    "modifications": [
+      {
+        "attributeName": "manager",
+        "modificationType": "add",
+        "values": [
+          "Boss",
+          "Vice Boss"
+        ]
+      },
+      {
+        "attributeName": "salary",
+        "modificationType": "add",
+        "values": 20000
+      }
+    ]
+    }
+    ]
+  }

@@ -45,7 +45,7 @@ def main():
                 delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
     
             elif(menu_selection == 3):
-                print("\n- Select input file containing desired modifactions for existing LDAP entires.")
+                print("\n- Select input file containing desired modifactions for existing LDAP entires.\n-Input file mus be valid json with \"modifcations\" root key for each entry")
                 input_file = select_input_file()
                 modify_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
     
@@ -166,7 +166,14 @@ def modify_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
             if not valid_json:
                 raise IOError
             else:
-                print("TEST")
+                with open(input_file, 'r') as ldap_modifications:
+                    ldap_entries_to_modify = json.load(ldap_modifications)
+
+                    for entry in ldap_entries_to_modify['entriesToModify']:
+                        dn = entry['dn']
+                        request_url = "{}{}".format(pd_api_base_url, dn)
+                        print(request_url)
+            
                 break
         
         except (IOError):
