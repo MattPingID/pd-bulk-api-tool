@@ -32,7 +32,7 @@ def main():
             print_menu()
             try:
                 menu_selection = int(input("\nSelect Option: "))
-            except:
+            except (UnboundLocalError, Exception):
                 pass
 
             if (menu_selection == 1):
@@ -90,14 +90,23 @@ def validate_json(input_file):
 
 
 def get_ldap_creds():
-    login = "cn=Administrator"
-    default_admin_acct = input("Log in with 'cn=Administrator'? (y/n): ")
     
-    if (default_admin_acct == 'n') or (default_admin_acct == 'N'):
-        login = input("Login: ")    
-   
-    password = "2FederateM0re" #getpass("Admin Password: ")
-    return (login, password)
+    while(True):
+        try: 
+            default_admin_acct = input("Log in with 'cn=Administrator'? (y/n): ")
+    
+            if (default_admin_acct == 'y') or (default_admin_acct == 'Y'):
+                login = "cn=Administrator"
+            elif (default_admin_acct == 'n') or (default_admin_acct == 'N'):
+                login = input("Login: ")    
+            else:
+                 raise ValueError
+            
+            password = "2FederateM0re" #getpass("Admin Password: ")
+            return (login, password)
+       
+        except ValueError:
+            print("Invalid Entry.  Enter y/n!\n")
 
 
 
