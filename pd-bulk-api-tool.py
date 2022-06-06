@@ -49,6 +49,7 @@ def main():
             elif(menu_selection == 3):
                 print("\n* Select input file containing desired modifactions for existing LDAP entires.\n* Input file must be valid json with a single \"entriesToModify\" key with a value consisting of a list of DN objects to modify and corresponding \"modifcations\"  key for each entry\n")
                 input_file = select_input_file()
+                print_modification_type_menu()
                 modify_ldap_entries(input_file, pd_api_base_url, headers, login_credentials)
     
             elif (menu_selection == 4):
@@ -144,34 +145,37 @@ def add_ldap_entries(input_file, pd_api_base_url, headers, login_credentials):
 
 
 def delete_ldap_entries(input_file, pd_api_base_url, headers, login_credentials):
-    try:
-        if not input_file:
-            return
-
-        ## Process entries
-        valid_json = validate_json(input_file)
- 
-        with open(input_file, 'r') as ldap_entries:
-            if (valid_json):
-                ldap_data = json.load(ldap_entries)
-                data = ldap_data['entriesToDelete']
-            else: 
-                data = ldap_entries
-
-            for entry in data:
-                dn = entry['dn'] if valid_json else entry.rstrip('\n')  #remove trailing newline
-                print("\nDeleting entry: {}".format(dn.split(',', 1)[0]))  # strip full DN after UID
-                request_url="{}{}".format(pd_api_base_url, dn)
-                api_response = requests.delete(request_url, headers=headers, verify=False, auth=login_credentials)
+    while(True):
     
-                if (api_response.status_code == 204):
-                    print("Response Code: {} - SUCCESS\n".format(api_response.status_code))
-                else:
-                    print(api_response.json())
-          
-            time.sleep(0.05)
-    except IOError:
-        print("\n\nInvalid File!\n")
+        try:
+            if not input_file:
+                return
+
+            ## Process entries
+            valid_json = validate_json(input_file)
+ 
+            with open(input_file, 'r') as ldap_entries:
+                if (valid_json):
+                    ldap_data = json.load(ldap_entries)
+                    data = ldap_data['entriesToDelete']
+                else: 
+                    data = ldap_entries
+
+                for entry in data:
+                    dn = entry['dn'] if valid_json else entry.rstrip('\n')  #remove trailing newline
+                    print("\nDeleting entry: {}".format(dn.split(',', 1)[0]))  # strip full DN after UID
+                    request_url="{}{}".format(pd_api_base_url, dn)
+                    api_response = requests.delete(request_url, headers=headers, verify=False, auth=login_credentials)
+    
+                    if (api_response.status_code == 204):
+                        print("Response Code: {} - SUCCESS\n".format(api_response.status_code))
+                    else:
+                        print(api_response.json())
+                    time.sleep(0.05)
+                break
+        except IOError:
+            print("\n\nInvalid File!\n")
+            input_file = select_input_file()
 
 
 
