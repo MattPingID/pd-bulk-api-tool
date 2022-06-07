@@ -1,0 +1,84 @@
+{
+    "entriesToModify":  [
+        { "dn" : "uid=lindajones,ou=people,dc=example,dc=com", 
+           "modifications" : [ 
+                { "_dn": "uid=lindasmith,ou=people,dc=example,dc=com" },
+                { "uid" :["lindasmith"] }, 
+                { "cn" : ["Linda Smith"] },
+                { "sn" : ["Smith"] }
+            ]
+        },
+
+        { "dn" : "uid=user.0,ou=people,dc=example,dc=com",
+            "modifications" : [
+                { "_dn": "uid=eskoseawell,ou=people,dc=example,dc=com" },
+                {"uid" : ["eskoseawell"]},
+                {"mail" : ["eskoseawell@example.com"]}
+            ] 
+        },
+
+        { "dn": "uid=user.1,ou=people,dc=example,dc=com",
+            "modifications" : [
+                { "_dn" : "uid=bobjones,ou=people,dc=example,dc=com" },
+                { "uid" : ["bobjones"] },
+                { "mail" : ["bobjones@example.com"] } 
+            ]
+        },
+        { "dn": "uid=user.2,ou=people,dc=example,dc=com",
+            "modifications" : [
+                { "_dn" : "uid=nickbourne,ou=people,dc=example,dc=com" },
+                { "uid" : ["nickbourne"] },
+                { "mail" : ["nickbourne@example.com"] } 
+            ]
+        },
+        { "dn": "uid=user.3,ou=people,dc=example,dc=com",
+            "modifications" : [
+                { "_dn" : "uid=janecarpenter,ou=people,dc=example,dc=com" },
+                { "uid" : ["janecarpenter"] },
+                { "mail" : ["janecarpenter@example.com"] } 
+            ]
+        },
+        { "dn": "uid=user.4,ou=people,dc=example,dc=com",
+            "modifications" : [
+                { "_dn" : "uid=mattmanisco,ou=people,dc=example,dc=com" },
+                { "uid" : ["mattmanisco"] },
+                { "mail" : ["mattmanisco@example.com"] } 
+            ]
+        },
+        { "dn": "uid=user.5,ou=people,dc=example,dc=com",
+            "modifications" : [
+                { "_dn" : "uid=johndoe,ou=people,dc=example,dc=com" },
+                { "uid" : ["johndoe"] },
+                { "mail" : ["johndoe@example.com"] } 
+            ]
+        },
+        { "dn": "uid=user.6,ou=people,dc=example,dc=com",
+            "modifications" : [
+                { "_dn" : "uid=billjackson,ou=people,dc=example,dc=com" },
+                { "uid" : ["billjackson"] },
+                { "mail" : ["billjackson@example.com"] } 
+            ]
+        },
+        { "dn": "uid=user.7,ou=people,dc=example,dc=com",
+            "modifications" : [
+                { "_dn" : "uid=jennifersimpson,ou=people,dc=example,dc=com" },
+                { "uid" : ["jennifersimpson"] },
+                { "mail" : ["jennifersimpson@example.com"] } 
+            ]
+        },
+        { "dn": "uid=user.8,ou=people,dc=example,dc=com",
+            "modifications" : [
+                { "_dn" : "uid=jeffthomas,ou=people,dc=example,dc=com" },
+                { "uid" : ["jeffthomas"] },
+                { "mail" : ["jeffthomas@example.com"] } 
+            ]
+        },
+        { "dn": "uid=user.9,ou=people,dc=example,dc=com",
+            "modifications" : [
+                { "_dn" : "uid=tomsmith,ou=people,dc=example,dc=com" },
+                { "uid" : ["tomsmith"] },
+                { "mail" : ["tomsmith@example.com"] } 
+            ]
+        }
+    ]
+}
