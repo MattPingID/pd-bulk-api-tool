@@ -1,13 +1,13 @@
 { "entriesToDelete" : [
-{ "dn" : "uid=user.0,ou=people,dc=example,dc=com"},
-{ "dn" : "uid=user.1,ou=people,dc=example,dc=com"},
-{ "dn" : "uid=user.2,ou=people,dc=example,dc=com"},
-{ "dn" :"uid=user.3,ou=people,dc=example,dc=com"},
-{ "dn" : "uid=user.4,ou=people,dc=example,dc=com"},
-{ "dn" :  "uid=user.5,ou=people,dc=example,dc=com"},
-{ "dn" : "uid=user.6,ou=people,dc=example,dc=com"},
-{ "dn" : "uid=user.7,ou=people,dc=example,dc=com"},
-{ "dn" : "uid=user.8,ou=people,dc=example,dc=com"},
-{ "dn" : "uid=user.9,ou=people,dc=example,dc=com"}
+{ "dn" : "uid=user.0,ou=people,dc=example,dc=com" } ,
+{ "dn" : "uid=user.1,ou=people,dc=example,dc=com" },
+{ "dn" : "uid=user.2,ou=people,dc=example,dc=com" },
+{ "dn" : "uid=user.3,ou=people,dc=example,dc=com" },
+{ "dn" : "uid=user.4,ou=people,dc=example,dc=com" },
+{ "dn" : "uid=user.5,ou=people,dc=example,dc=com" },
+{ "dn" : "uid=user.6,ou=people,dc=example,dc=com" },
+{ "dn" : "uid=user.7,ou=people,dc=example,dc=com" },
+{ "dn" : "uid=user.8,ou=people,dc=example,dc=com" },
+{ "dn" : "uid=user.9,ou=people,dc=example,dc=com" }
 ]
 }

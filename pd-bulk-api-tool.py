@@ -211,14 +211,13 @@ def modify_ldap_entries(input_file, pd_api_base_url, headers, login_credentials,
                             payload = ("{}".format(entry['modifications']))
                             payload = payload.replace("[{", "").replace("}]", "")
                             payload = payload.replace("{", "").replace("}", "")
-                           #payload = payload.replace("]}}", "}}")
                             payload = "{{{}}}".format(payload)
-                            #payload = "{{{}".format(payload[2:])
-                            print(payload)
+    
                         payload = payload.replace('\'','"')
                         payload = payload.replace("True", "true")
                         payload = payload.replace("False", "false")
                         request_url = "{}{}".format(pd_api_base_url, dn)
+                        
                         print("\n\nModifying Entry: {}\n\n\t{}".format(entry['dn'], payload))
                         if (method == 2):
                             api_response = requests.patch(request_url, headers=headers, verify=False, auth=login_credentials, data=payload)
