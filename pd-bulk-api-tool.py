@@ -70,7 +70,7 @@ def main():
             elif (menu_selection not in options.keys()):
                 print("Invalid option!\n")
 
-            print("\n\n\n\n\n\t\t\tPingDirectoly Bulk API Tool")
+            print("\n\n\n\n\n\t\t\tPingDirectory Bulk API Tool")
 
     except KeyboardInterrupt:
         sys.exit(0)
@@ -204,13 +204,27 @@ def modify_ldap_entries(input_file, pd_api_base_url, headers, login_credentials,
 
                     for entry in ldap_entries_to_modify['entriesToModify']:
                         dn = entry['dn']
-                        payload = "{{\"modifications\": \n{}}}\n".format(entry['modifications'])
+                        
+                        if (method == 2):
+                            payload = "{{\"modifications\": \n{}}}\n".format(entry['modifications']) #format data for PATCH
+                        else:
+                            payload = ("{}".format(entry['modifications']))
+                            payload = payload.replace("[{", "").replace("}]", "")
+                            payload = payload.replace("{", "").replace("}", "")
+                           #payload = payload.replace("]}}", "}}")
+                            payload = "{{{}}}".format(payload)
+                            #payload = "{{{}".format(payload[2:])
+                            print(payload)
                         payload = payload.replace('\'','"')
                         payload = payload.replace("True", "true")
                         payload = payload.replace("False", "false")
                         request_url = "{}{}".format(pd_api_base_url, dn)
                         print("\n\nModifying Entry: {}\n\n\t{}".format(entry['dn'], payload))
-                        api_response = requests.patch(request_url, headers=headers, verify=False, auth=login_credentials, data=payload)
+                        if (method == 2):
+                            api_response = requests.patch(request_url, headers=headers, verify=False, auth=login_credentials, data=payload)
+                        else: 
+                            api_response = requests.put(request_url, headers=headers, verify = False, auth=login_credentials, data=payload)
+
                         if (api_response.status_code == 200):
                             print("Response Code: {} - SUCCESS\n".format(api_response.status_code))
                         else:
@@ -225,7 +239,6 @@ def modify_ldap_entries(input_file, pd_api_base_url, headers, login_credentials,
 
             
 ##
-
 
 if __name__ == "__main__":
     main()
