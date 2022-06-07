@@ -1,0 +1,138 @@
+{ "entriesToModify" : [
+    { "dn" : "uid=lindajones,ou=people,dc=example,dc=com",
+        "modifications": [
+            {
+              "attributeName": "cn",
+              "modificationType": "remove",
+              "values": [
+                "Linda F. Jones"
+              ]
+            },
+            {
+              "attributeName": "cn",
+              "modificationType": "add",
+              "values": [
+                "Linda Jones"
+              ]
+            },
+            {
+              "attributeName": "ubidEmailJSON",
+              "modificationType": "add",
+              "values": [
+                {"type": "home", "value": "lindajones@example.com", "verified": true}
+              ]
+            }
+          ]
+            },
+        { "dn" : "uid=user.0,ou=people,dc=example,dc=com",
+            "modifications": [
+                {
+                    "attributeName": "mail",
+                    "modificationType": "set",
+                    "values": [
+                        "eskoseawell@example.com"
+                    ]
+                }
+            ]
+        },
+        { "dn" : "uid=user.1,ou=people,dc=example,dc=com",
+            "modifications": [
+                {
+                    "attributeName": "mail",
+                    "modificationType": "set",
+                    "values": [
+                        "bobjones@example.com"
+                    ]
+                }
+            ]
+        },
+        { "dn" : "uid=user.2,ou=people,dc=example,dc=com",
+            "modifications": [
+                {
+                    "attributeName": "mail",
+                    "modificationType": "set",
+                    "values": [
+                        "nickbourne@example.com"
+                    ]
+                }
+            ]
+        },
+        { "dn" : "uid=user.3,ou=people,dc=example,dc=com",
+            "modifications": [
+                {
+                    "attributeName": "mail",
+                    "modificationType": "set",
+                    "values": [
+                        "janecarpenter@example.com"
+                    ]
+                }
+            ]
+        },
+        { "dn" : "uid=user.4,ou=people,dc=example,dc=com",
+            "modifications": [
+                {
+                    "attributeName": "mail",
+                    "modificationType": "set",
+                    "values": [
+                        "mattmanisco@example.com"
+                    ]
+                }
+            ]
+        },
+        { "dn" : "uid=user.5,ou=people,dc=example,dc=com",
+            "modifications": [
+                {
+                    "attributeName": "mail",
+                    "modificationType": "set",
+                    "values": [
+                        "johndoe@example.com"
+                    ]
+                }
+            ]
+        },
+        { "dn" : "uid=user.6,ou=people,dc=example,dc=com",
+            "modifications": [
+                {
+                    "attributeName": "mail",
+                    "modificationType": "set",
+                    "values": [
+                        "billjackson@example.com"
+                    ]
+                }
+            ]
+        },
+        { "dn" : "uid=user.7,ou=people,dc=example,dc=com",
+            "modifications": [
+                {
+                    "attributeName": "mail",
+                    "modificationType": "set",
+                    "values": [
+                        "jennifersimpson@example.com"
+                    ]
+                }
+            ]
+        },
+        { "dn" : "uid=user.8,ou=people,dc=example,dc=com",
+            "modifications": [
+                {
+                    "attributeName": "mail",
+                    "modificationType": "set",
+                    "values": [
+                    "jeffthomas@example.com"
+                    ]
+                }
+            ]
+        },
+        { "dn" : "uid=user.9,ou=people,dc=example,dc=com",
+            "modifications": [
+                {
+                    "attributeName": "mail",
+                    "modificationType": "set",
+                    "values": [
+                        "tomsmith@example.com"
+                    ]
+                }
+            ]
+        }
+    ]
+}
