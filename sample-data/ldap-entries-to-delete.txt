@@ -8,3 +8,12 @@ uid=user.6,ou=people,dc=example,dc=com
 uid=user.7,ou=people,dc=example,dc=com
 uid=user.8,ou=people,dc=example,dc=com
 uid=user.9,ou=people,dc=example,dc=com
+uid=eskoseawell,ou=people,dc=example,dc=com
+uid=bobjones,ou=people,dc=example,dc=com
+uid=nickbourne,ou=people,dc=example,dc=com
+uid=janecarpenter,ou=people,dc=example,dc=com
+uid=mattmanisco,ou=people,dc=example,dc=com
+uid=johndoe,ou=people,dc=example,dc=com
+uid=billjackson,ou=people,dc=example,dc=com
+uid=jennifersimpson,ou=people,dc=example,dc=com
+uid=tomsmith,ou=people,dc=example,dc=com
