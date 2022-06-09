@@ -52,7 +52,7 @@
                     "attributeName": "mail",
                     "modificationType": "set",
                     "values": [
-                        "nickbourne@example.com"
+                        "nickstewart@example.com"
                     ]
                 }
             ]
@@ -74,7 +74,7 @@
                     "attributeName": "mail",
                     "modificationType": "set",
                     "values": [
-                        "mattmanisco@example.com"
+                        "mattmadison@example.com"
                     ]
                 }
             ]

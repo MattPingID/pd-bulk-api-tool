@@ -8,7 +8,6 @@
                 { "sn" : ["Smith"] }
             ]
         },
-
         { "dn" : "uid=user.0,ou=people,dc=example,dc=com",
             "modifications" : [
                 { "_dn": "uid=eskoseawell,ou=people,dc=example,dc=com" },

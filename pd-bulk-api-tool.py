@@ -110,7 +110,7 @@ def get_ldap_creds():
                 login = input("Login: ")    
             else:
                  raise ValueError
-            password = "2FederateM0re" #getpass("Admin Password: ")
+            password = getpass("Admin Password: ") #"2FederateM0re"
             return (login, password)
        
         except ValueError:
@@ -128,7 +128,7 @@ def add_ldap_entries(input_file, pd_api_base_url, headers, login_credentials):
         with open(input_file, 'r') as ldap_entries:
             if (valid_json):
                 ldap_data = json.load(ldap_entries)
-                data = ldap_data['entries']
+                data = ldap_data['entriesToAdd']
             else: 
                 data = ldap_entries
 
